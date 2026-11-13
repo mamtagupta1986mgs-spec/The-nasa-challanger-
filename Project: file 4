@@ -1,0 +1,36 @@
+About Horizons
+Horizons Cartoon
+Pierre! Next time, use the Horizons Ephemeris Service...
+The JPL Horizons on-line solar system data and ephemeris computation service provides access to key solar system data and flexible production of highly accurate ephemerides for solar system objects (1,580,494 asteroids, 4,088 comets, 461 planetary satellites {includes satellites of Earth and dwarf planet Pluto}, 8 planets, the Sun, L1, L2, select spacecraft, and system barycenters). Horizons is provided by the Solar System Dynamics Group of the Jet Propulsion Laboratory.
+
+With a historically typical uptime of more than 99.9%, Horizons can be used for real-time operations; however, as with any networked system, users should expect the system to be available on a best-effort basis. We strongly recommend that planning for critical tasks relying on Horizons include an allowance for potential unforeseen outages.
+
+Documentation is available via the “Manual” tab above. Available time-spans for objects provided by Horizons can be viewed via the “Time Spans” tab above. When requesting an ephemeris for a specific object, you should ensure the requested time(s) are within the available time-span for that object.
+
+The Horizons system can be accessed through a variety of interfaces: web, command-line, email, and an API. Each interface is described below.
+
+ Web Interface
+The web-interface to Horizons is available via the “App” tab above. New users are encouraged to use the tutorial and reference the manual when needed.
+
+Providing nearly all capabilities of the primary command-line interface, it does not provide the following.
+
+Small-body Population Searches (use the Small-Body Database Query Tool as an alternative).
+Custom Close-Approach Tables
+ Command-Line Interface
+The command-line interface to Horizons can be accessed by connecting to a port on the JPL server. This will initiate a text-only VT100 terminal command-line session that accesses all Horizons functions. No account or password is required.
+
+You will be then taken through a series of prompts that will ask questions needed to generate the desired information.
+
+To initiate such an interactive session from a UNIX/LINUX/MacOS type terminal prompt, first install the required ‘stunnel’ encryption wrapper according to instructions here. Once initially set-up, the command-line interface can thereafter be accessed by issuing the command telnet localhost 6775.
+
+Once connected, type ? from any prompt for help, ?! for more detailed help, ‘X’ to exit.
+
+Most Windows telnet client programs have a dialog box in which the port number (6775) can be entered. If, after connecting to the system, you are prompted for a login name (which is not necessary for Horizons), it means the port 6775 request was not passed along by the software on your end. Some Windows terminal software does not fully implement the telnet protocol and does not send port numbers, even if you enter them.
+
+ API
+The Horizons system can be accessed using an API. Instructions for using the API are available via the API server. The API is useful for programatic control of the Horizons system.
+
+ Email Interface
+The Horizons system can be accessed using email to submit batch-style input files. Instructions on how to access the email server, including a complete detailed example, is available by sending an email message to horizons@ssd.jpl.nasa.gov with the subject “BATCH-LONG”. You can also access instructions via this link.
+
+IMPORTANT: Please be sure your email client is sending content as plain ASCII text. Failure to do so may result in no response from the system or an error message, even when your job-content appears perfect from within your email client. Modern graphical e-mail systems often insert hidden font and formatting codes that Horizons cannot interpret. A helpful guide to suitably configure some email clients for plain-text is available via this link. However, e-mail requests may now be most practical for those working in a UNIX/Linux/MacOS programmatic command-line and text editor environment.
