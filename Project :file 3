@@ -1,0 +1,70 @@
+"""
+Project 1 (Primary Submission): Space Mission Design Game — Q-Orbit
+NASA Space Apps Challenge 2026
+Implements NASA JPL Vis-Viva Equation, Hohmann Transfer Delta-V, Tsiolkovsky Rocket Equation,
+and Quantum-Inspired QUBO Propulsion Optimization.
+"""
+
+import math
+
+MU_SUN_KM3_S2 = 1.32712440018e11  # Solar gravitational parameter (km^3/s^2)
+G0_M_S2 = 9.80665                 # Standard gravity (m/s^2)
+AU_KM = 149597870.7               # 1 Astronomical Unit (km)
+
+ORBITAL_RADII_KM = {
+    "Earth": 1.000 * AU_KM,
+    "Mars": 1.524 * AU_KM,
+    "Venus": 0.723 * AU_KM,
+}
+
+PROPULSION_STAGES = [
+    {"name": "LOX/LH2 Cryogenic Upper Stage", "isp": 452.0, "dry_mass_kg": 4500.0, "cost_m": 120.0},
+    {"name": "LOX/CH4 Methalox Stage", "isp": 380.0, "dry_mass_kg": 5200.0, "cost_m": 85.0},
+    {"name": "Nuclear Thermal Propulsion (NTP)", "isp": 900.0, "dry_mass_kg": 8500.0, "cost_m": 310.0},
+]
+
+
+def vis_viva_velocity_km_s(mu: float, r_km: float, a_km: float) -> float:
+    """Computes orbital velocity (km/s) via NASA Vis-Viva equation: v^2 = mu * (2/r - 1/a)."""
+    return math.sqrt(mu * ((2.0 / r_km) - (1.0 / a_km)))
+
+
+def hohmann_transfer_delta_v_m_s(origin: str, destination: str) -> tuple[float, float, float]:
+    """Calculates Hohmann transfer departure dv1, arrival dv2, and total delta-v (m/s)."""
+    r1 = ORBITAL_RADII_KM[origin]
+    r2 = ORBITAL_RADII_KM[destination]
+    a_transfer = 0.5 * (r1 + r2)
+
+    v_origin = math.sqrt(MU_SUN_KM3_S2 / r1)
+    v_dest = math.sqrt(MU_SUN_KM3_S2 / r2)
+
+    dv1 = abs(vis_viva_velocity_km_s(MU_SUN_KM3_S2, r1, a_transfer) - v_origin) * 1000.0
+    dv2 = abs(v_dest - vis_viva_velocity_km_s(MU_SUN_KM3_S2, r2, a_transfer)) * 1000.0
+    return dv1, dv2, (dv1 + dv2)
+
+
+def required_propellant_kg(delta_v_m_s: float, isp_s: float, dry_plus_payload_kg: float) -> float:
+    """Inverts the Tsiolkovsky rocket equation to compute required propellant mass (kg)."""
+    return dry_plus_payload_kg * (math.exp(delta_v_m_s / (isp_s * G0_M_S2)) - 1.0)
+
+
+def quantum_qubo_stage_selector(total_dv_m_s: float, payload_kg: float, max_budget_m: float = 250.0):
+    """Quantum-inspired QUBO solver minimizing propellant mass + budget penalty."""
+    best = None
+    min_energy = float("inf")
+    for stage in PROPULSION_STAGES:
+        prop_mass = required_propellant_kg(total_dv_m_s, stage["isp"], stage["dry_mass_kg"] + payload_kg)
+        penalty = 50000.0 * (max(0.0, stage["cost_m"] - max_budget_m) ** 2)
+        energy = prop_mass + penalty
+        if energy < min_energy:
+            min_energy = energy
+            best = (stage["name"], prop_mass, stage["cost_m"])
+    return best
+
+
+if __name__ == "__main__":
+    print("=== Q-ORBIT: SPACE MISSION DESIGN GAME (NASA JPL ASTRODYNAMICS) ===")
+    dv1, dv2, total_dv = hohmann_transfer_delta_v_m_s("Earth", "Mars")
+    stage_name, prop_kg, cost_m = quantum_qubo_stage_selector(total_dv, payload_kg=12000.0)
+    print(f"Earth -> Mars Total Delta-V: {total_dv:,.2f} m/s (dv1: {dv1:,.1f}, dv2: {dv2:,.1f})")
+    print(f"Optimal QUBO Stage: {stage_name} | Propellant: {prop_kg:,.1f} kg | Cost: ${cost_m:.1f}M")
