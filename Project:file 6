@@ -1,0 +1,76 @@
+# 🧮 NASA Aerospace & Quantum Engineering Formulations
+**Project:** Q-Orbit — Quantum Space Mission Designer  
+**Challenge:** Space Mission Design Game (NASA Space Apps Challenge 2026)  
+**Author:** mamtagupta1986mgs-spec  
+
+---
+
+## 1. Orbital Astrodynamics (NASA JPL Standards)
+
+### A. Vis-Viva Orbital Energy Equation
+Determines the exact instantaneous velocity $v$ of a spacecraft at radial distance $r$ along an elliptical transfer orbit with semi-major axis $a$:
+
+$$v^2 = \mu \left(\frac{2}{r} - \frac{1}{a}\right)$$
+
+* $\mu = GM$: Standard gravitational parameter ($\mu_{\text{Sun}} = 1.3271244 \times 10^{11}\text{ km}^3/\text{s}^2$)
+* $r$: Heliocentric distance of the spacecraft ($\text{km}$)
+* $a = \frac{r_1 + r_2}{2}$: Semi-major axis of the Hohmann transfer ellipse ($\text{km}$)
+
+### B. Hohmann Interplanetary Transfer $\Delta v$ Budget
+Calculates the minimum-energy two-impulse maneuver between two circular coplanar orbits of radii $r_1$ (Earth = $1.000\text{ AU}$) and $r_2$ (Mars = $1.524\text{ AU}$):
+
+$$\Delta v_1 = \sqrt{\frac{\mu}{r_1}} \left(\sqrt{\frac{2r_2}{r_1 + r_2}} - 1\right)$$
+
+$$\Delta v_2 = \sqrt{\frac{\mu}{r_2}} \left(1 - \sqrt{\frac{2r_1}{r_1 + r_2}}\right)$$
+
+$$\Delta v_{\text{total}} = \Delta v_1 + \Delta v_2$$
+
+---
+
+## 2. Rocket Propulsion Engineering (Tsiolkovsky Equation)
+
+### Propellant Mass Ratio & Staging Requirement
+Relates spacecraft velocity change $\Delta v$ to engine exhaust efficiency (Specific Impulse $I_{sp}$) and initial-to-final mass ratio:
+
+$$\Delta v = I_{sp} \cdot g_0 \cdot \ln\left(\frac{m_0}{m_f}\right)$$
+
+Solving for required propellant mass $m_{\text{propellant}} = m_0 - m_f$:
+
+$$m_{\text{propellant}} = m_f \left(e^{\frac{\Delta v}{I_{sp} \cdot g_0}} - 1\right)$$
+
+* $I_{sp}$: Specific impulse of the propulsion stage ($\text{s}$)
+* $g_0 = 9.80665\text{ m/s}^2$: Standard Earth gravitational acceleration
+* $m_0$: Wet mass at ignition ($\text{kg}$); $m_f$: Dry stage mass + payload mass ($\text{kg}$)
+
+---
+
+## 3. Entry, Descent & Landing (NASA-SP-8013)
+
+### Ballistic Coefficient ($\beta$) & Terminal Descent Velocity
+Models aerodynamic deceleration during planetary atmospheric entry:
+
+$$\beta = \frac{m}{C_D \cdot A}, \qquad v_{\text{terminal}} = \sqrt{\frac{2 \beta g}{\rho}}$$
+
+* $C_D$: Aerodynamic drag coefficient
+* $A$: Reference cross-sectional heat-shield area ($\text{m}^2$)
+* $\rho$: Local atmospheric density ($\text{kg/m}^3$)
+
+---
+
+## 4. Quantum-Inspired Mission Optimization (QUBO Hamiltonian)
+
+### Combinatorial Propulsion & Budget Optimization
+Formulates discrete rocket stage selection under mass and financial budget constraints as a Quadratic Unconstrained Binary Optimization (QUBO) energy minimization problem:
+
+$$H(x) = \sum_{i} m_{\text{prop}, i} \, x_i + P \left(\sum_{i} x_i - 1\right)^2 + \lambda_{\text{budget}} \max\left(0, \sum_{i} C_i x_i - C_{\max}\right)^2$$
+
+* $x_i \in \{0, 1\}$: Binary decision variable selecting propulsion architecture $i$
+* $P$: One-hot constraint penalty ensuring exactly one propulsion system is selected
+* $C_i, C_{\max}$: Stage cost and maximum mission budget threshold ($\text{USD Millions}$)
+
+---
+
+## 5. Official Data Sources & References
+* **NASA JPL Horizons System:** Planetary gravitational constants ($\mu$) and heliocentric orbital radii.
+* **NASA Launch Services Program (LSP):** Propulsion stage specific impulse ($I_{sp}$) and structural mass fractions.
+* **NASA Technical Reports Server (NTRS):** *NASA-SP-8013* Entry, Descent, and Landing (EDL) aerodynamic models.
