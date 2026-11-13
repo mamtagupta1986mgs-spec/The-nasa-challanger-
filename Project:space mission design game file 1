@@ -1,0 +1,47 @@
+# 🚀 Q-Orbit: Quantum Space Mission Designer
+**NASA Space Apps Challenge 2026 — Official Submission**  
+**Primary Challenge:** Space Mission Design Game  
+**License:** MIT License  
+
+---
+
+## 🌌 Overview
+**Q-Orbit** is an open-source Python astrodynamics and mission-design simulation engine that combines authentic **NASA orbital mechanics equations**, **quantum-inspired trajectory optimization (QUBO)**, and official **NASA JPL Horizons & PDS telemetry** to plan fuel-efficient Moon and Mars missions.
+
+* 🎥 **28-Second Official Pitch Video:** [Watch Pitch on YouTube](YOUR_30_SEC_YOUTUBE_LINK)
+* 🎬 **120-Second Deep-Dive Walkthrough:** [Watch Full Demo on YouTube](YOUR_120_SEC_YOUTUBE_LINK)
+* 📄 **Complete Master Technical Report (All Challenges, Equations & Diagrams):** [View Master PDF](docs/NASA_Space_Apps_2026_Master_Technical_Report.pdf)
+
+---
+
+## 🧮 Authentic NASA Equations Implemented (`src/main.py`)
+1. **Vis-Viva Orbital Energy Equation:** $v^2 = \mu \left(\frac{2}{r} - \frac{1}{a}\right)$
+2. **Hohmann Interplanetary Transfer $\Delta v$:** Minimum-energy two-burn orbital transfer budgets using NASA JPL Horizons heliocentric distances.
+3. **Tsiolkovsky Rocket Propellant Equation:** $\Delta v = I_{sp} g_0 \ln\left(\frac{m_0}{m_f}\right)$
+4. **Quantum-Inspired Trajectory Selector (QUBO):** Optimizes multi-stage propulsion and mission window combinations under mass and power constraints.
+
+---
+
+## 🛰️ Official NASA Datasets Used
+* **NASA JPL Horizons System:** Planetary gravitational parameters ($\mu$), heliocentric orbital radii, and ephemeris vectors.
+* **NASA Open Data Portal & Launch Services Program (LSP):** Rocket stage specific impulse ($I_{sp}$) and payload mass ratios.
+* **NASA Planetary Data System (PDS) & Moon/Mars Trek:** Surface landing coordinates and elevation profiles.
+* **NASA Open Science Data Repository (OSDR):** Human spaceflight radiation and life-support constraints.
+
+---
+
+## 📂 Repository Structure
+* `src/main.py` — Primary runnable Python simulation for **Space Mission Design Game** (`Q-Orbit`).
+* `docs/NASA_Space_Apps_2026_Master_Technical_Report.pdf` — Complete compiled PDF of equations, essays, diagrams, and code.
+* `requirements.txt` — Python dependencies.
+* `other-challenge-notes/` — Archive of runnable Python scripts implementing authentic NASA equations for 8 additional 2026 challenges.
+
+---
+
+## ⚡ Quick Start
+```bash
+git clone https://github.com
+cd YOUR_REPO_NAME
+pip install -r requirements.txt
+python src/main.py
+```
