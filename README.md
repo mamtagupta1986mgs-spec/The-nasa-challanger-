@@ -57,3 +57,8 @@ Designing an interplanetary mission requires strict engineering trade-offs. Ever
 
 ## 📄 License
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+
+
+
+video link: https://youtube.com/shorts/V2p379qel28?si=7rFgMLsynvtD8oiU
